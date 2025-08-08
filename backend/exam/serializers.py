@@ -86,18 +86,4 @@ class LeaderboardSerializer(serializers.ModelSerializer):
             'created_at': result.created_at
         } for result in top_results]
 
-class TransactionSerializer(serializers.ModelSerializer):
-    user_username = serializers.CharField(source='user.username')
-    exam_title = serializers.SerializerMethodField()
-    
-    class Meta:
-        model = Transaction
-        fields = ['id', 'user_username', 'amount', 'transaction_type', 
-                  'description', 'created_at', 'exam_title']
-    
-    def get_exam_title(self, obj):
-        if obj.exam:
-            return obj.exam.title
-        return None
-
 
